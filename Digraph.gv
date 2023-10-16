@@ -1,0 +1,22 @@
+digraph {
+	rankdir=LR
+	0 [shape=circle]
+	node [shape=doublecircle]
+	4
+	node [shape=circle]
+	0 -> 0 [label=0]
+	0 -> 1 [label=2]
+	0 -> 0 [label=3]
+	1 -> 2 [label=0]
+	1 -> 1 [label=2]
+	1 -> 0 [label=3]
+	2 -> 0 [label=0]
+	2 -> 3 [label=2]
+	2 -> 0 [label=3]
+	3 -> 2 [label=0]
+	3 -> 1 [label=2]
+	3 -> 4 [label=3]
+	4 -> 0 [label=0]
+	4 -> 1 [label=2]
+	4 -> 0 [label=3]
+}
