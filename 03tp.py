@@ -45,13 +45,7 @@ def rechercheBMH(motif, texte):  # version simplifiée de BM -> BM Horspool
         else:
             d = dico.get(texte[j], -1)
 
-            if d == -1:
-                j += lm
-            elif d < i:
-                j += lm - d
-            else:
-                j += lm - i
-
+            j += lm - min(i, d + 1)
             i = lm - 1
 
     return -1
@@ -82,8 +76,12 @@ def str2int(s):
     return sum(ord(s[-i]) * 256 ** (i - 1) for i in range(1, len(s) + 1))
 
 
+# This is a base 16 conversion
+def str2int_bis(s):
+    return int(''.join(hex(ord(c))[2:] for c in s), 16)
+
 def hash(s):
-    return str2int(s) % 101
+    return str2int_bis(s) % 101
 
 
 print('hash(abracadabra) =', hash('abracadabra'))
@@ -193,8 +191,10 @@ def update_adler32(h, n, s_i, s_j):
 
     return (s2 << 16) | s1
 
+
 h = adler32('abracadabra')
 assert adler32('bracadabrab') == update_adler32(h, len('abracadabra'), 'a', 'b')
+
 
 def rechercheRK3(motif, texte):
     hm = adler32(motif)
