@@ -71,6 +71,7 @@ print('-------------------')
 print("Exercice 3.")
 print()
 
+
 def decodeLZW(l: list):
     dt = creeDT(max(l) - 94)
     res = ""
@@ -105,7 +106,8 @@ def decodeLZW(l: list):
 
 print("decodeLZW([33, 34, 95, 97, 35)=", decodeLZW([33, 34, 95, 97, 35]))
 print("decodeLZW(encodeLZW('abracadabra')) =", decodeLZW(encodeLZW("abracadabra")))
-print("decodeLZW(encodeLZW('Bonjour je suis un message, Bonjour je suis un second message')) =", decodeLZW(encodeLZW("Bonjour je suis un message, Bonjour je suis un second message")))
+print("decodeLZW(encodeLZW('Bonjour je suis un message, Bonjour je suis un second message')) =",
+      decodeLZW(encodeLZW("Bonjour je suis un message, Bonjour je suis un second message")))
 
 print()
 print('-------------------')
