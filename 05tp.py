@@ -56,8 +56,15 @@ def encodeLZW(m: str):
             j += 1
         mot = m[i:i + j - 1]
         res.append(dt[0].index(mot))
+
         if m[i:i + j] not in dt[0]:
-            dt = ajoute(dt, m[i:i + j])
+            # Add new word to the dictionary if it doesn't exist
+            if mot not in dt[0]:
+                dt = ajoute(dt, mot)
+
+        if j == 1:
+            break
+
         i += j - 1
 
     return res
@@ -78,26 +85,35 @@ def decodeLZW(l: list):
 
     i = 0
     while i < len(l):
-        if l[i] < 95:
+        if l[i] < len(dt[0]):
             m = dt[0][l[i]]
             res += m
 
+            # Add new word to the dictionary if it doesn't exist
+            if m not in dt[0]:
+                dt = ajoute(dt, m)
+
+            # If there's another character in the index, add it to the word
             if i + 1 < len(l):
                 a = dt[0][l[i + 1]]
                 if a != "":
                     dt = ajoute(dt, m + a)
         else:
+            # Reconstruct the current word from the dictionary
             m = dt[0][l[i]]
 
-            if m != "":
-                res += m
-            else:
+            # Check if the current word exists in the dictionary
+            if m not in dt[0]:
+                # If the current word doesn't exist, try to reconstruct it
                 m0 = dt[0][l[i - 1]]
                 if m0 != "":
                     m = m0 + m0[0]
-                    res += m
 
-                dt = ajoute(dt, m)
+            # Add the reconstructed word to the dictionary
+            dt = ajoute(dt, m)
+
+            # Append the current word to the decoded result
+            res += m
 
         i += 1
 
